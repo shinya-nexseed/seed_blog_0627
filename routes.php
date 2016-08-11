@@ -19,10 +19,23 @@
     // 必要なリクエスト (URL) を変数に代入
     $resouce = $params[0];
     $action = $params[1];
+    $id = 0;
+    $post = array(); // 送信データ受け取り用空の配列
+
     // echo '<br>';
     // echo '$resouce = ' . $resouce;
     // echo '<br>';
     // echo '$action = ' . $action;
+
+    // URLのアクションより後に/区切りでidの値が入っていれば取得
+    if (isset($params[2])) {
+        $id = $params[2];
+    }
+
+    // もし$_POSTが存在すれば取得して$postへ
+    if (isset($_POST) && !empty($_POST)) {
+        $post = $_POST;
+    }
 
 
     // Controllerを呼び出す
