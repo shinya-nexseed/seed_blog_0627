@@ -32,7 +32,18 @@
         } else {
             $controller->add();
         }
+        break;
 
+      case 'edit':
+        $controller->edit($id);
+        break;
+
+      case 'update':
+        $controller->update($id, $post);
+        break;
+
+      case 'delete':
+        $controller->delete($id);
         break;
 
       default:
@@ -103,6 +114,32 @@
 
             // indexへ遷移
             header('Location: index');
+        }
+
+        function edit($id) {
+            echo 'BlogsControllerクラスのedit()呼びだし';
+            echo '<br>';
+            echo 'URLから取得したid = ' . $id;
+            echo '<br>';
+            $this->viewOptions = $this->blog->edit($id);
+            $this->action = 'edit';
+            $this->display();
+        }
+
+        function update($id, $post) {
+            echo 'BlogsControllerクラスのupdate()呼び出し';
+            echo '<br>';
+            $this->blog->update($id, $post);
+            // update時のURLがcreate時と違い
+            // /blogs/update/id とひとつ階層が深かったため
+            header('Location: ../show/' . $id);
+        }
+
+        function delete($id) {
+            echo 'BlogsControllerクラスのdelete()呼び出し';
+            echo '<br>';
+            $this->blog->delete($id);
+            header('Location: ../index');
         }
 
         // View表示用メソッド
